@@ -8,7 +8,6 @@ export function App() {
         const bambooCard = document.getElementById('bamboo-card')
         if (!message?.classList.contains('opacity-0')) return
         setCount(count + 1)
-        console.log(count)
         if (count >= 3) {
             const bamboo = document.getElementById('bamboo')
             bambooCard?.classList.add('-translate-y-10')
