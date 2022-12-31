@@ -1,10 +1,34 @@
+import { useState } from 'preact/hooks'
 import ZodiacList, { Rabbit } from './zodiac'
 
 export function App() {
+    const [count, setCount] = useState(0)
+    async function animation2023() {
+        const message = document.getElementById('message')
+        const bambooCard = document.getElementById('bamboo-card')
+        if (!message?.classList.contains('opacity-0')) return
+        setCount(count + 1)
+        console.log(count)
+        if (count >= 3) {
+            const bamboo = document.getElementById('bamboo')
+            bambooCard?.classList.add('-translate-y-10')
+            message?.classList.remove('opacity-0')
+            await sleep(1 * 200)
+            bamboo?.classList.add('-translate-y-72')
+            bambooCard?.classList.remove('cursor-pointer')
+        } else {
+            bambooCard?.classList.add('-translate-y-10')
+            await sleep(1 * 30)
+            message?.classList.remove('opacity-0')
+            await sleep(1 * 1200)
+            message?.classList.add('opacity-0')
+            bambooCard?.classList.remove('-translate-y-10')
+        }
+    }
     return (
         <div className="m-0 mt-52 text-center">
             <div className="mb-10 flex justify-center font-noto">
-                <div id="bamboo" className="cursor-pointer transition" onClick={animation2023}>
+                <div id="bamboo-card" className="cursor-pointer transition" onClick={animation2023}>
                     <Bamboo />
                     <div id="message" className="flex justify-center opacity-0 transition">
                         あけおめ
@@ -19,25 +43,21 @@ export function App() {
     )
 }
 
-async function animation2023() {
-    const message = document.getElementById('message')
-    const bamboo = document.getElementById('bamboo')
-    if (!message?.classList.contains('opacity-0')) return
-    bamboo?.classList.add('-translate-y-10')
-    await sleep(1 * 30)
-    message?.classList.remove('opacity-0')
-    await sleep(1 * 1200)
-    message?.classList.add('opacity-0')
-    bamboo?.classList.remove('-translate-y-10')
-}
-
 function sleep(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
 export function Bamboo() {
     return (
-        <svg width="128" height="128" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg
+            id="bamboo"
+            className="transition"
+            width="128"
+            height="128"
+            viewBox="0 0 32 32"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
             <path
                 d="M27.1994 18.1378C27.1043 17.8785 26.817 17.7455 26.5577 17.8406C26.2985 17.9358 26.1655 18.223 26.2606 18.4823L26.9691 20.4129L26.2469 21.4353L25.7701 20.1197C25.676 19.86 25.3893 19.7259 25.1297 19.8199C24.87 19.914 24.7358 20.2008 24.8299 20.4604L25.5439 22.4306L23.1416 25.8316C22.9823 26.0571 23.036 26.3691 23.2615 26.5284C23.4871 26.6877 23.7991 26.634 23.9584 26.4085L26.3853 22.9726L28.4057 22.99C28.6818 22.9924 28.9076 22.7705 28.91 22.4943C28.9124 22.2182 28.6904 21.9924 28.4143 21.99L27.0874 21.9786L27.7842 20.9922L29.8457 21.01C30.1218 21.0124 30.3476 20.7905 30.35 20.5143C30.3524 20.2382 30.1304 20.0124 29.8543 20.01L28.4863 19.9982L29.2984 18.8485C29.4577 18.6229 29.404 18.3109 29.1785 18.1516C28.9529 17.9923 28.6409 18.046 28.4816 18.2715L27.6701 19.4204L27.1994 18.1378Z"
                 fill="#86D72F"
