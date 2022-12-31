@@ -4,7 +4,7 @@ export function App() {
             <div className="mb-10 flex justify-center font-noto">
                 <div id="bamboo" className="cursor-pointer transition" onClick={animation2023}>
                     <Bamboo />
-                    <div id="message" className="flex justify-center transition">
+                    <div id="message" className="flex justify-center transition opacity-0">
                         あけおめ
                         <Rabbit />
                     </div>
